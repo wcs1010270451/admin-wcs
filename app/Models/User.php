@@ -7,6 +7,9 @@ use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 
+/*
+ * 用户模型
+ * */
 class User extends Authenticatable implements MustVerifyEmailContract
 {
     use Notifiable,MustVerifyEmailTrait;
@@ -29,9 +32,16 @@ class User extends Authenticatable implements MustVerifyEmailContract
         'password', 'remember_token',
     ];
 
+    //与帖子关系
     public function topics()
     {
         return $this->hasMany(Topic::class);
+    }
+
+    //与回复关系
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 
     public function isAuthorOf($model)

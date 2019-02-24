@@ -2,16 +2,27 @@
 
 namespace App\Models;
 
+/*
+ * 帖子模型
+ * */
 class Topic extends Model
 {
     protected $fillable = ['title', 'body', 'category_id', 'excerpt', 'slug'];
 
+    //与分类关系
     public function category(){
         return $this->belongsTo(Category::class);
     }
 
+    //与用户关系
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    //与回复关系
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 
     public function scopeWithOrder($query,$order){
